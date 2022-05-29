@@ -6,8 +6,25 @@ import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import * as S from "./style";
 
+const countriesMapping = {
+  "BR": "Brazil",
+  "AU": "Australia",
+  "CA": "Canada",
+  "DE": "Germany",
+  "NL": "Netherlands"
+}
+
 const UserList = ({ users, isLoading }) => {
   const [hoveredUserId, setHoveredUserId] = useState();
+  const [filter, setFilter] = useState({});
+  const handleCheckBoxChange = eventCountry =>
+    setFilter( filter => {
+      !filter[eventCountry] ?
+      filter[eventCountry] = countriesMapping[eventCountry] :
+      delete filter[eventCountry]
+      return filter;
+    })
+
 
   const handleMouseEnter = (index) => {
     setHoveredUserId(index);
@@ -20,13 +37,19 @@ const UserList = ({ users, isLoading }) => {
   return (
     <S.UserList>
       <S.Filters>
-        <CheckBox value="BR" label="Brazil" />
-        <CheckBox value="AU" label="Australia" />
-        <CheckBox value="CA" label="Canada" />
-        <CheckBox value="DE" label="Germany" />
+        {Object.entries(countriesMapping).map( country =>
+         <CheckBox key={country[0]} value={country[0]} label={country[1]} 
+          onChange={ handleCheckBoxChange }/>
+        )}
       </S.Filters>
       <S.List>
-        {users.map((user, index) => {
+        {users
+        .filter( user => 
+          !(Object.keys(filter).length === 0) ? 
+          Object.values(filter).includes(user?.location.country) :
+          true
+        )
+        .map((user, index) => {
           return (
             <S.User
               key={index}
