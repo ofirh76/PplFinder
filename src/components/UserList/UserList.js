@@ -23,8 +23,14 @@ const UserList = ({ users, isLoading }) => {
       filter[eventCountry] = countriesMapping[eventCountry] :
       delete filter[eventCountry]
       return filter;
-    })
-
+    });
+  const toggleFavorite = user => {
+    const favoriteUserEmail = localStorage.getItem(user.email);
+    !favoriteUserEmail ? 
+    localStorage.setItem(user.email, user.email) :
+    localStorage.removeItem(favoriteUserEmail);
+  };
+  const isFavorite = email => localStorage.getItem(email);
 
   const handleMouseEnter = (index) => {
     setHoveredUserId(index);
@@ -69,8 +75,8 @@ const UserList = ({ users, isLoading }) => {
                   {user?.location.city} {user?.location.country}
                 </Text>
               </S.UserInfo>
-              <S.IconButtonWrapper isVisible={index === hoveredUserId}>
-                <IconButton>
+              <S.IconButtonWrapper isVisible={isFavorite(user?.email) || index === hoveredUserId}>
+                <IconButton onClick={() => toggleFavorite(user)}>
                   <FavoriteIcon color="error" />
                 </IconButton>
               </S.IconButtonWrapper>
