@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Text from "components/Text";
 import Spinner from "components/Spinner";
-import CheckBox from "components/CheckBox";
+import Filters from "components/Filters";
+import List from "components/List";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import * as S from "./style";
@@ -15,40 +16,35 @@ const countriesMapping = {
 }
 
 const UserList = ({ users, isLoading }) => {
-  const [hoveredUserId, setHoveredUserId] = useState();
+  // const [hoveredUserId, setHoveredUserId] = useState();
   const [filter, setFilter] = useState({});
-  const handleCheckBoxChange = eventCountry =>
-    setFilter( filter => {
-      !filter[eventCountry] ?
-      filter[eventCountry] = countriesMapping[eventCountry] :
-      delete filter[eventCountry]
-      return filter;
-    });
-  const toggleFavorite = user => {
-    const favoriteUserEmail = localStorage.getItem(user.email);
-    !favoriteUserEmail ? 
-    localStorage.setItem(user.email, user.email) :
-    localStorage.removeItem(favoriteUserEmail);
-  };
-  const isFavorite = email => localStorage.getItem(email);
+  // const [filteredUsers, setFilteredUsers] = useState(users);
+  // const toggleFavorite = user => {
+  //   const favoriteUserEmail = localStorage.getItem(user.email);
+  //   !favoriteUserEmail ? 
+  //   localStorage.setItem(user.email, user.email) :
+  //   localStorage.removeItem(favoriteUserEmail);
+  // };
+  // const isFavorite = email => localStorage.getItem(email);
 
-  const handleMouseEnter = (index) => {
-    setHoveredUserId(index);
-  };
+  // const handleMouseEnter = (index) => {
+  //   setHoveredUserId(index);
+  // };
 
-  const handleMouseLeave = () => {
-    setHoveredUserId();
-  };
+  // const handleMouseLeave = () => {
+  //   setHoveredUserId();
+  // };
 
+  const filteredUsers = users.filter( user => 
+    !(Object.keys(filter).length === 0) ? 
+    Object.values(filter).includes(user?.location.country) :
+    true
+  );
   return (
     <S.UserList>
-      <S.Filters>
-        {Object.entries(countriesMapping).map( country =>
-         <CheckBox key={country[0]} value={country[0]} label={country[1]} 
-          onChange={ handleCheckBoxChange }/>
-        )}
-      </S.Filters>
-      <S.List>
+      <Filters countriesMapping={countriesMapping} setFilter={setFilter} filter={filter}/>
+      <List isLoading={isLoading} users={filteredUsers}/>
+      {/* <S.List>
         {users
         .filter( user => 
           !(Object.keys(filter).length === 0) ? 
@@ -88,7 +84,7 @@ const UserList = ({ users, isLoading }) => {
             <Spinner color="primary" size="45px" thickness={6} variant="indeterminate" />
           </S.SpinnerWrapper>
         )}
-      </S.List>
+      </S.List> */}
     </S.UserList>
   );
 };
