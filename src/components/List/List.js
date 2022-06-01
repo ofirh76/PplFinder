@@ -6,7 +6,7 @@ import Spinner from "components/Spinner";
 import * as S from "./style";
 import { useLocalStorage } from "hooks/useLocalStorage";
 
-const List = ({users, isLoading, toggleFavorite, isFavorite}) => {
+const List = ({users, isLoading, toggleFavorite, isFavorite, handleScroll}) => {
   const [hoveredUserId, setHoveredUserId] = useState();
 	// const { toggleFavorite, isFavorite } = useLocalStorage();
   // const toggleFavorite = user => {
@@ -39,10 +39,10 @@ const List = ({users, isLoading, toggleFavorite, isFavorite}) => {
     setHoveredUserId();
   };
 
-	console.log(users)
+	console.log(users.length);
 
 	return (
-		<S.List>
+		<S.List onScroll={handleScroll}>
 			{users
 			.map((user, index) => {
 				return (

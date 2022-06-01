@@ -16,27 +16,13 @@ const countriesMapping = {
   "NL": "Netherlands"
 }
 
-const UserList = ({ users, isLoading }) => {
-  // const [hoveredUserId, setHoveredUserId] = useState();
-  const { favoriteUsers, toggleFavorite, isFavorite } = useLocalStorage();
+const UserList = ({ users, isLoading, fetchUsersConcat }) => {
+  const { toggleFavorite, isFavorite } = useLocalStorage();
   const [filter, setFilter] = useState({});
-  // const [filteredUsers, setFilteredUsers] = useState(users);
-  // const toggleFavorite = user => {
-  //   const favoriteUserEmail = localStorage.getItem(user.email);
-  //   !favoriteUserEmail ? 
-  //   localStorage.setItem(user.email, user.email) :
-  //   localStorage.removeItem(favoriteUserEmail);
-  // };
-  // const isFavorite = email => localStorage.getItem(email);
-
-  // const handleMouseEnter = (index) => {
-  //   setHoveredUserId(index);
-  // };
-
-  // const handleMouseLeave = () => {
-  //   setHoveredUserId();
-  // };
-
+  const handleScroll = e => {
+		const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
+		bottom && fetchUsersConcat();
+ 	}
   const filteredUsers = users.filter( user => 
     !(Object.keys(filter).length === 0) ? 
     Object.values(filter).includes(user?.location.country) :
@@ -45,48 +31,7 @@ const UserList = ({ users, isLoading }) => {
   return (
     <S.UserList>
       <Filters countriesMapping={countriesMapping} setFilter={setFilter} filter={filter}/>
-      <List isLoading={isLoading} users={filteredUsers} toggleFavorite={toggleFavorite} isFavorite={isFavorite}/>
-      {/* <S.List>
-        {users
-        .filter( user => 
-          !(Object.keys(filter).length === 0) ? 
-          Object.values(filter).includes(user?.location.country) :
-          true
-        )
-        .map((user, index) => {
-          return (
-            <S.User
-              key={index}
-              onMouseEnter={() => handleMouseEnter(index)}
-              onMouseLeave={handleMouseLeave}
-            >
-              <S.UserPicture src={user?.picture.large} alt="" />
-              <S.UserInfo>
-                <Text size="22px" bold>
-                  {user?.name.title} {user?.name.first} {user?.name.last}
-                </Text>
-                <Text size="14px">{user?.email}</Text>
-                <Text size="14px">
-                  {user?.location.street.number} {user?.location.street.name}
-                </Text>
-                <Text size="14px">
-                  {user?.location.city} {user?.location.country}
-                </Text>
-              </S.UserInfo>
-              <S.IconButtonWrapper isVisible={isFavorite(user?.email) || index === hoveredUserId}>
-                <IconButton onClick={() => toggleFavorite(user)}>
-                  <FavoriteIcon color="error" />
-                </IconButton>
-              </S.IconButtonWrapper>
-            </S.User>
-          );
-        })}
-        {isLoading && (
-          <S.SpinnerWrapper>
-            <Spinner color="primary" size="45px" thickness={6} variant="indeterminate" />
-          </S.SpinnerWrapper>
-        )}
-      </S.List> */}
+      <List isLoading={isLoading} users={filteredUsers} toggleFavorite={toggleFavorite} isFavorite={isFavorite} handleScroll={handleScroll}/>
     </S.UserList>
   );
 };
