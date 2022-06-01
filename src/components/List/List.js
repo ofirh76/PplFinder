@@ -4,30 +4,32 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import Text from "components/Text";
 import Spinner from "components/Spinner";
 import * as S from "./style";
+import { useLocalStorage } from "hooks/useLocalStorage";
 
-const List = ({users, isLoading}) => {
+const List = ({users, isLoading, toggleFavorite, isFavorite}) => {
   const [hoveredUserId, setHoveredUserId] = useState();
-  const toggleFavorite = user => {
-		let favoriteUsersEmails = localStorage.getItem('favoriteUsersEmails');
-		if(!favoriteUsersEmails) {
-			localStorage.setItem('favoriteUsersEmails', JSON.stringify({}));
-			favoriteUsersEmails = {};
-		} else favoriteUsersEmails = JSON.parse(favoriteUsersEmails);
-		const favoriteUserEmail = favoriteUsersEmails[user.email];
-    !favoriteUserEmail ? 
-    favoriteUsersEmails[user.email] = user.email :
-    delete favoriteUsersEmails[user.email];
-		localStorage.setItem('favoriteUsersEmails', JSON.stringify(favoriteUsersEmails));
-  };
-  const isFavorite = email => {
-		let favoriteUsersEmails = localStorage.getItem('favoriteUsersEmails');
-		if(favoriteUsersEmails) {
-			favoriteUsersEmails = JSON.parse(favoriteUsersEmails);
-			const favoriteUserEmail = favoriteUsersEmails[email];
-			return favoriteUserEmail  
-		}
+	// const { toggleFavorite, isFavorite } = useLocalStorage();
+  // const toggleFavorite = user => {
+	// 	let favoriteUsersEmails = localStorage.getItem('favoriteUsersEmails');
+	// 	if(!favoriteUsersEmails) {
+	// 		localStorage.setItem('favoriteUsersEmails', JSON.stringify({}));
+	// 		favoriteUsersEmails = {};
+	// 	} else favoriteUsersEmails = JSON.parse(favoriteUsersEmails);
+	// 	const favoriteUserEmail = favoriteUsersEmails[user.email];
+  //   !favoriteUserEmail ? 
+  //   favoriteUsersEmails[user.email] = user.email :
+  //   delete favoriteUsersEmails[user.email];
+	// 	localStorage.setItem('favoriteUsersEmails', JSON.stringify(favoriteUsersEmails));
+  // };
+  // const isFavorite = email => {
+	// 	let favoriteUsersEmails = localStorage.getItem('favoriteUsersEmails');
+	// 	if(favoriteUsersEmails) {
+	// 		favoriteUsersEmails = JSON.parse(favoriteUsersEmails);
+	// 		const favoriteUserEmail = favoriteUsersEmails[email];
+	// 		return favoriteUserEmail  
+	// 	}
 
-	}
+	// }
 
 	const handleMouseEnter = (index) => {
     setHoveredUserId(index);

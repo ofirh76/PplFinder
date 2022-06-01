@@ -5,6 +5,7 @@ import Filters from "components/Filters";
 import List from "components/List";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import { useLocalStorage } from "hooks/useLocalStorage";
 import * as S from "./style";
 
 const countriesMapping = {
@@ -17,6 +18,7 @@ const countriesMapping = {
 
 const UserList = ({ users, isLoading }) => {
   // const [hoveredUserId, setHoveredUserId] = useState();
+  const { favoriteUsers, toggleFavorite, isFavorite } = useLocalStorage();
   const [filter, setFilter] = useState({});
   // const [filteredUsers, setFilteredUsers] = useState(users);
   // const toggleFavorite = user => {
@@ -43,7 +45,7 @@ const UserList = ({ users, isLoading }) => {
   return (
     <S.UserList>
       <Filters countriesMapping={countriesMapping} setFilter={setFilter} filter={filter}/>
-      <List isLoading={isLoading} users={filteredUsers}/>
+      <List isLoading={isLoading} users={filteredUsers} toggleFavorite={toggleFavorite} isFavorite={isFavorite}/>
       {/* <S.List>
         {users
         .filter( user => 

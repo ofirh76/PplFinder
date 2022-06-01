@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import Text from "components/Text";
-import { usePeopleFetch } from "hooks";
+import { usePeopleFetch, useLocalStorage } from "hooks";
+import List from "components/List";
 import * as S from "./style";
 import { ContactsOutlined } from "@material-ui/icons";
 
 const Favorites = () => {
   const { users, isLoading } = usePeopleFetch();
-  const [favoriteUsersEmails, setFavoriteUsersEmails] = useState({...localStorage});
-  const favoriteUsers = users.filter( user => favoriteUsersEmails[user.email]);
-
+  const { favoriteUsers, toggleFavorite, isFavorite } = useLocalStorage();
   return (
     <S.Home>
       <S.Content>
@@ -17,7 +16,7 @@ const Favorites = () => {
             Favorites
           </Text>
         </S.Header>
-        <S.List isLoading={isLoading} users={favoriteUsers} />
+        <List isLoading={isLoading} users={favoriteUsers} toggleFavorite={toggleFavorite} isFavorite={isFavorite} />
       </S.Content>
     </S.Home>
   );
