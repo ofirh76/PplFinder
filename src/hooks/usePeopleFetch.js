@@ -6,7 +6,7 @@ export const usePeopleFetch = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    fetchUsers();
+    users.length === 0 && fetchUsers();
   }, []);
 
   async function fetchUsers() {
