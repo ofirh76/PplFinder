@@ -5,9 +5,11 @@ import Text from "components/Text";
 import Spinner from "components/Spinner";
 import * as S from "./style";
 import { useLocalStorage } from "hooks/useLocalStorage";
+import { usePeopleFetch } from "hooks/usePeopleFetch";
 import User from "components/User";
 
-const List = ({users, isLoading, handleScroll, toggleFavorite}) => {
+const List = ({users, handleScroll, toggleFavorite}) => {
+	const { isLoading } = usePeopleFetch();
   // const [hoveredUserId, setHoveredUserId] = useState();
 	// const { toggleFavorite, isFavorite } = useLocalStorage();
   // const toggleFavorite = user => {
@@ -39,12 +41,6 @@ const List = ({users, isLoading, handleScroll, toggleFavorite}) => {
   // const handleMouseLeave = () => {
   //   setHoveredUserId();
   // };
-
-	console.log(users, 'list');
-
-	// useEffect(() => {
-	// 	console.log(users, 'list');
-	// }, [users])
 
 	return (
 		<S.List onScroll={handleScroll}>

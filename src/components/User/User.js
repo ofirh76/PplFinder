@@ -17,8 +17,6 @@ const User = (props) => {
   //   setHoveredUserId();
   // };
 
-	console.log('user');
-
 	return (
 		<S.User
 			key={props.index}

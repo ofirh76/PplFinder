@@ -6,8 +6,8 @@ import * as S from "./style";
 import { Grow } from "@material-ui/core";
 import { ContactsOutlined } from "@material-ui/icons";
 
-const Favorites = () => {
-  const { isLoading } = usePeopleFetch();
+const Favorites = (isLoading) => {
+  // const { isLoading } = usePeopleFetch();
   const { favoriteUsers, toggleFavorite } = useLocalStorage();
 
   return (

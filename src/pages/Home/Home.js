@@ -5,8 +5,8 @@ import { Grow } from "@material-ui/core";
 import { usePeopleFetch } from "hooks";
 import * as S from "./style";
 
-const Home = () => {
-  const { users, isLoading, fetchUsersConcat } = usePeopleFetch();
+const Home = ({ users, isLoading, fetchUsersConcat }) => {
+  // const { isLoading } = usePeopleFetch();
 
   return (
     <Grow in={true}>

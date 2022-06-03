@@ -19,7 +19,6 @@ export const useLocalStorage = () => {
         return [...favoriteUsers];
       });
     } else  {
-      console.log(favoriteUsers, user?.email)
       delete favoriteUsersEmails[user?.email];
       setFavoriteUsers(favoriteUsers => [...favoriteUsers.filter( favoriteUser => favoriteUser?.email !== user?.email)]);
     }
@@ -51,7 +50,6 @@ export const useLocalStorage = () => {
   };
 
   useEffect(() => {
-    console.log('first render')
     const favoriteUsers = getItemLocalStorage('favoriteUsersEmails');
     favoriteUsers && setFavoriteUsers([...Object.values(favoriteUsers)]);
   }, []);
