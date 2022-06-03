@@ -1,4 +1,16 @@
 import styled from "styled-components";
+import SelectMUI from "@material-ui/core/Select";
+import FormControlMUI from "@material-ui/core/FormControl";
+
+//combine material ui with styled components
+export const Select = styled(SelectMUI)`
+  width: 100%;
+`;
+
+export const FormControl = styled(FormControlMUI)`
+  max-width: 45%;
+  min-width: 150px;
+`;
 
 export const Filters = styled.div`
   display: flex;
@@ -10,12 +22,6 @@ export const Filters = styled.div`
 
 export const Container = styled.div`
   display: flex;
-`;
-
-export const FilterContainer = styled.div`
-  width: 50%;
-`;
-
-export const SortContainer = styled.div`
-  width: 50%;
+  gap: 15px;
+  width: 500px;
 `;

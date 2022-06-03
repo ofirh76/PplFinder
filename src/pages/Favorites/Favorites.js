@@ -8,7 +8,7 @@ import { ContactsOutlined } from "@material-ui/icons";
 
 const Favorites = () => {
   const { isLoading } = usePeopleFetch();
-  const { favoriteUsers, toggleFavorite, isFavorite } = useLocalStorage();
+  const { favoriteUsers, toggleFavorite } = useLocalStorage();
 
   return (
     <Grow in={true}>
@@ -19,7 +19,7 @@ const Favorites = () => {
               Favorites
             </Text>
           </S.Header>
-          <List isLoading={isLoading} users={favoriteUsers} toggleFavorite={toggleFavorite} isFavorite={isFavorite} />
+          <List isLoading={isLoading} users={favoriteUsers} toggleFavorite={toggleFavorite} />
         </S.Content>
       </S.Home>
     </Grow>

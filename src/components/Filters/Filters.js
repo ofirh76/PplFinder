@@ -44,41 +44,39 @@ const Filters = ({countriesMapping, filter, setFilter, sortBy, setSortBy, sortBy
 		// 	)}
 		// </S.Filters>
 		<S.Container>
-			<S.FilterContainer>
-				<FormControl variant="outlined">
-					<InputLabel>Filter</InputLabel>
-					<Select
-						onChange={ handleCheckBoxChange }
-						multiple
-						value={filter}
-						renderValue={filter => filter.map( countryKey => ` ${reversedCountriesMapping[countryKey]}`)}
-						label="Filter"
-						>
-						{Object.entries(countriesMapping).map((country) => (
-							<MenuItem key={country[1]} value={country[1]}>
-								<Checkbox checked={filter.includes(country[1])} />
-								<ListItemText primary={country[0]} />
-							</MenuItem>
-						))}
-					</Select>
-				</FormControl>
-			</S.FilterContainer>
-			<S.SortContainer>
-				<FormControl variant='outlined'>
-					<InputLabel>SortBy</InputLabel>
-					<Select
-					onChange={ (e) => setSortBy(e.target.value) }
-					value={sortBy}
-					label='SortBy'
+			<S.FormControl variant="outlined">
+				<InputLabel>Filter</InputLabel>
+				<S.Select
+					onChange={ handleCheckBoxChange }
+					multiple
+					value={filter}
+					renderValue={filter => filter.map( countryKey => ` ${reversedCountriesMapping[countryKey]}`)}
+					label="Filter"
+					MenuProps={{variant:'menu'}} // fix for jumpy menu
 					>
-					{sortByOptions.map( option => 
-						<MenuItem key={option} value={option}>
-							<ListItemText primary={option} />
+					{Object.entries(countriesMapping).map((country) => (
+						<MenuItem key={country[1]} value={country[1]}>
+							<Checkbox checked={filter.includes(country[1])} />
+							<ListItemText primary={country[0]} />
 						</MenuItem>
-					)}
-					</Select>
-				</FormControl>
-			</S.SortContainer>
+					))}
+				</S.Select>
+			</S.FormControl>
+			<S.FormControl variant='outlined'>
+				<InputLabel>SortBy</InputLabel>
+				<S.Select
+				onChange={ (e) => setSortBy(e.target.value) }
+				value={sortBy}
+				renderValue={sortBy => sortBy[0].toUpperCase()+sortBy.slice(1)}
+				label='SortBy'
+				>
+				{sortByOptions.map( option => 
+					<MenuItem key={option} value={option}>
+						<ListItemText primary={option[0].toUpperCase()+option.slice(1)} />
+					</MenuItem>
+				)}
+				</S.Select>
+			</S.FormControl>
 		</S.Container>
 	)
 }

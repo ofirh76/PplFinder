@@ -37,11 +37,19 @@ const sortByOptions = [
 //   : 0
 
 const UserList = ({ users, isLoading, fetchUsersConcat }) => {
-  const { toggleFavorite, isFavorite } = useLocalStorage();
+  const { toggleFavorite } = useLocalStorage();
   const [filter, setFilter] = useState([]);
-  const [sortBy, setSortBy] = useState('name');
+  const [sortBy, setSortBy] = useState('');
   const handleScroll = e => {
-		const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
+    //scrollHeight : the minimum height required in order to fit all the content of an element in the viewport,
+    //scrollTop : the measurement of the distance from the element's top to its topmost visible content,
+    //clientHeight : the inner height of an element in pixels
+    //
+    //To calculate when the scorll reaches the bottom, we will reduce the clientHeight and scrollTop
+    //from scrollHeight. Because scrollTop is not rounded, unlike scrollHeight and clientHeight we will
+    //check if the scroll amount is close enough to some threshold(1 was used for simplicity, may be changed).
+    const SCROLL_THRESHHOLD = 1;
+		const bottom = e.target.scrollHeight - e.target.clientHeight - e.target.scrollTop < SCROLL_THRESHHOLD;
 		bottom && fetchUsersConcat();
  	};
 
@@ -93,7 +101,7 @@ const UserList = ({ users, isLoading, fetchUsersConcat }) => {
   return (
     <S.UserList>
       <Filters countriesMapping={countriesMapping} setFilter={setFilter} filter={filter} sortBy={sortBy} setSortBy={setSortBy} sortByOptions={sortByOptions}/>
-      <List isLoading={isLoading} users={filteredUsers} toggleFavorite={toggleFavorite} isFavorite={isFavorite} handleScroll={handleScroll}/>
+      <List isLoading={isLoading} users={filteredUsers} handleScroll={handleScroll}/>
     </S.UserList>
   );
 };

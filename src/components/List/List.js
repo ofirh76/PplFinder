@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useId, useEffect } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import Text from "components/Text";
 import Spinner from "components/Spinner";
 import * as S from "./style";
 import { useLocalStorage } from "hooks/useLocalStorage";
+import User from "components/User";
 
-const List = ({users, isLoading, toggleFavorite, isFavorite, handleScroll}) => {
-  const [hoveredUserId, setHoveredUserId] = useState();
+const List = ({users, isLoading, handleScroll, toggleFavorite}) => {
+  // const [hoveredUserId, setHoveredUserId] = useState();
 	// const { toggleFavorite, isFavorite } = useLocalStorage();
   // const toggleFavorite = user => {
 	// 	let favoriteUsersEmails = localStorage.getItem('favoriteUsersEmails');
@@ -31,45 +32,50 @@ const List = ({users, isLoading, toggleFavorite, isFavorite, handleScroll}) => {
 
 	// }
 
-	const handleMouseEnter = (index) => {
-    setHoveredUserId(index);
-  };
+	// const handleMouseEnter = (index) => {
+  //   setHoveredUserId(index);
+  // };
 
-  const handleMouseLeave = () => {
-    setHoveredUserId();
-  };
+  // const handleMouseLeave = () => {
+  //   setHoveredUserId();
+  // };
 
-	console.log(users.length);
+	console.log(users, 'list');
+
+	// useEffect(() => {
+	// 	console.log(users, 'list');
+	// }, [users])
 
 	return (
 		<S.List onScroll={handleScroll}>
 			{users
 			.map((user, index) => {
 				return (
-					<S.User
-						key={index}
-						onMouseEnter={() => handleMouseEnter(index)}
-						onMouseLeave={handleMouseLeave}
-					>
-						<S.UserPicture src={user?.picture.large} alt="" />
-						<S.UserInfo>
-							<Text size="22px" bold>
-								{user?.name.title} {user?.name.first} {user?.name.last}
-							</Text>
-							<Text size="14px">{user?.email}</Text>
-							<Text size="14px">
-								{user?.location.street.number} {user?.location.street.name}
-							</Text>
-							<Text size="14px">
-								{user?.location.city} {user?.location.country}
-							</Text>
-						</S.UserInfo>
-						<S.IconButtonWrapper isVisible={isFavorite(user?.email) || index === hoveredUserId}>
-							<IconButton onClick={() => toggleFavorite(user)}>
-								<FavoriteIcon color="error" />
-							</IconButton>
-						</S.IconButtonWrapper>
-					</S.User>
+					<User key={user?.email} user={user} index={index} toggleFavorite={toggleFavorite}/>
+					// <S.User
+					// 	key={index}
+					// 	onMouseEnter={() => handleMouseEnter(index)}
+					// 	onMouseLeave={handleMouseLeave}
+					// >
+					// 	<S.UserPicture src={user?.picture.large} alt="" />
+					// 	<S.UserInfo>
+					// 		<Text size="22px" bold>
+					// 			{user?.name.title} {user?.name.first} {user?.name.last}
+					// 		</Text>
+					// 		<Text size="14px">{user?.email}</Text>
+					// 		<Text size="14px">
+					// 			{user?.location.street.number} {user?.location.street.name}
+					// 		</Text>
+					// 		<Text size="14px">
+					// 			{user?.location.city} {user?.location.country}
+					// 		</Text>
+					// 	</S.UserInfo>
+					// 	<S.IconButtonWrapper isVisible={isFavorite(user?.email) || index === hoveredUserId}>
+					// 		<IconButton onClick={() => toggleFavorite(user)}>
+					// 			<FavoriteIcon color="error" />
+					// 		</IconButton>
+					// 	</S.IconButtonWrapper>
+					// </S.User>
 				);
 			})}
 			{isLoading && (

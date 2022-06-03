@@ -6,6 +6,7 @@ export const Home = styled.div`
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
+  overflow-y: hidden;
 `;
 
 export const Content = styled.div`
@@ -13,8 +14,8 @@ export const Content = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100%;
-  padding-block-start: 100px;
+  padding-block-start: 44px;
+  padding-block-end: 80px;
 `;
 
 export const Header = styled.div`

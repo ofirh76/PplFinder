@@ -11,16 +11,16 @@ export const usePeopleFetch = () => {
 
   async function fetchUsers() {
     setIsLoading(true);
-    // const response = await axios.get(`https://randomuser.me/api/?results=25&page=1`);
-    const response = {data: userData};
+    const response = await axios.get(`https://randomuser.me/api/?results=25&page=1`);
+    // const response = {data: userData};
     setIsLoading(false);
     setUsers(response.data.results);
   }
 
   async function fetchUsersConcat() {
     setIsLoading(true);
-    // const response = await axios.get(`https://randomuser.me/api/?results=25&page=1`);
-    const response = {data: userData};
+    const response = await axios.get(`https://randomuser.me/api/?results=25&page=1`);
+    // const response = {data: userData};
     setIsLoading(false);
     setUsers(users => {
       users = users.concat(response.data.results);
