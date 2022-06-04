@@ -29,7 +29,7 @@ export const useLocalStorage = () => {
   };
 
   const isFavorite = email => {
-		let favoriteUsersEmails = getItemLocalStorage('favoriteUsersEmails');
+		const favoriteUsersEmails = getItemLocalStorage('favoriteUsersEmails');
 		if(favoriteUsersEmails) {
 			const favoriteUserEmail = favoriteUsersEmails[email];
 			return favoriteUserEmail  
@@ -50,6 +50,7 @@ export const useLocalStorage = () => {
   };
 
   useEffect(() => {
+    //get favorite users from local storage on first render
     const favoriteUsers = getItemLocalStorage('favoriteUsersEmails');
     favoriteUsers && setFavoriteUsers([...Object.values(favoriteUsers)]);
   }, []);

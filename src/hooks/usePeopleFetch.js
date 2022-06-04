@@ -18,6 +18,7 @@ export const usePeopleFetch = () => {
   }
 
   async function fetchUsersConcat() {
+    // load more users for infinite scrollbar 
     setIsLoading(true);
     const response = await axios.get(`https://randomuser.me/api/?results=25&page=1`);
     // const response = {data: userData};

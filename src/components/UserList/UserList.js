@@ -29,6 +29,7 @@ const reducer = (usersState, action) => {
         true
       ), filter: action.payload.filter};
     case 'sort':
+      //sort functions, adapt to different nesting of properties
       const sortName = (userNext, user) => {
         const fullNameNext = `${userNext?.name?.first} ${userNext?.name?.last.toLowerCase()}`;
         const fullName = `${user?.name?.first} ${user?.name?.last.toLowerCase()}`;
@@ -89,6 +90,7 @@ const UserList = ({ users, isLoading, fetchUsersConcat }) => {
  	};
 
    useEffect(() => {
+    //update the list on initial render and on infinite scrollbar added users
     dispatch({type: 'update', payload: {users}});
     usersState.filter.length > 0 && dispatch({type: 'filter', payload: {filter: usersState.filter, users}});
     usersState.sortBy && dispatch({type: 'sort', payload: {sortBy: usersState.sortBy}});

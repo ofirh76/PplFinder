@@ -15,7 +15,7 @@ const NavBar = () => {
 
   useEffect(() => {
     setIsBusy(true);
-    location.pathname === '/favorites' && setValue(1);
+    location.pathname === '/favorites' && setValue(1); // remain on favorite tab when refreshed on favorite url
     setIsBusy(false);
   }, [])
 

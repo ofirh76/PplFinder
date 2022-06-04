@@ -13,7 +13,7 @@ const Filters = ({countriesMapping, sortByOptions, dispatch, users}) => {
 
 	const handleCheckBoxChange = e => {
 		dispatch({type: 'filter', payload: {filter: e.target.value, users}});
-		sortBy && dispatch({type: 'sort', payload: {sortBy: sortBy}});
+		sortBy && dispatch({type: 'sort', payload: {sortBy: sortBy}}); //apply sort after userList update
 		setFilter(e.target.value);
 	};
 	const handleSortBy = e => {
