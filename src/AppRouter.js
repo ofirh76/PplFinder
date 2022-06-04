@@ -8,9 +8,6 @@ import NavBar from "components/NavBar";
 const AppRouter = () => {
   const { users, isLoading, fetchUsersConcat } = usePeopleFetch();
 
-  // const fetchedHome = props => <Home {...props} users={users} isLoading={isLoading} fetchUsersConcat={fetchUsersConcat}/>;
-  // const fetchedFavorites = props => <Favorites {...props} isLoading={isLoading}/>;
-
   return (
     <ThemeProvider>
       <Router>
@@ -18,8 +15,6 @@ const AppRouter = () => {
         <Switch>
           <Route exact path="/"><Home users={users} isLoading={isLoading} fetchUsersConcat={fetchUsersConcat}/></Route>
           <Route exact path="/favorites"><Favorites isLoading={isLoading}/></Route>
-          {/* <Route exact path="/" component={fetchedHome}/>
-          <Route exact path="/favorites" component={fetchedFavorites}/> */}
         </Switch>
       </Router>
     </ThemeProvider>

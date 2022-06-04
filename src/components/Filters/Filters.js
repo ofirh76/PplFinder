@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from "react";
-// import CheckBox from "components/CheckBox";
-import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
-import FormControl from '@material-ui/core/FormControl';
 import * as S from "./style";
 
 
@@ -14,16 +10,12 @@ const Filters = ({countriesMapping, sortByOptions, dispatch, users}) => {
 	const [reversedCountriesMapping, setReversedCountriesMapping] = useState({});
 	const [filter, setFilter] = useState([]);
   const [sortBy, setSortBy] = useState('');
+
 	const handleCheckBoxChange = e => {
 		dispatch({type: 'filter', payload: {filter: e.target.value, users}});
 		sortBy && dispatch({type: 'sort', payload: {sortBy: sortBy}});
 		setFilter(e.target.value);
-		console.log(filter)
 	};
-	// const handleCheckBoxChange = e => {
-	// 	const newFilter = e.target.value;
-	// 	setFilter(newFilter);
-	// };
 	const handleSortBy = e => {
 		dispatch({type: 'sort', payload: {sortBy: e.target.value}});
 		setSortBy(e.target.value);
@@ -37,11 +29,6 @@ const Filters = ({countriesMapping, sortByOptions, dispatch, users}) => {
 		// reverse mapping to display country instead of key
 		setReversedCountriesMapping(reverseKeyValue(countriesMapping));
 	}, []);
-
-	// useEffect(() => {
-  //   filter.length > 0 && dispatch({type: 'filter', payload: {filter}});
-	// 	sortBy && dispatch({type: 'sort', payload: {sortBy}});
-  // }, [users]);
 
 	return (
 		<S.Container>
@@ -67,7 +54,6 @@ const Filters = ({countriesMapping, sortByOptions, dispatch, users}) => {
 				<InputLabel>SortBy</InputLabel>
 				<S.Select
 				onChange={ handleSortBy }
-				// onChange={ (e) => setSortBy(e.target.value) }
 				value={sortBy}
 				renderValue={sortBy => sortBy[0].toUpperCase()+sortBy.slice(1)}
 				label='SortBy'

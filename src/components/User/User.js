@@ -6,16 +6,8 @@ import { useLocalStorage } from "hooks/useLocalStorage";
 import * as S from "./style";
 
 const User = (props) => {
-  // const [hoveredUserId, setHoveredUserId] = useState();
 	const [hovered, setHovered] = useState(false);
 	const { isFavorite, toggleFavorite } = useLocalStorage();
-	// const handleMouseEnter = (index) => {
-  //   setHoveredUserId(index);
-  // };
-
-  // const handleMouseLeave = () => {
-  //   setHoveredUserId();
-  // };
 
 	return (
 		<S.User

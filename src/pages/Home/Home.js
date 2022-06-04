@@ -2,11 +2,9 @@ import React from "react";
 import Text from "components/Text";
 import UserList from "components/UserList";
 import { Grow } from "@material-ui/core";
-import { usePeopleFetch } from "hooks";
 import * as S from "./style";
 
 const Home = ({ users, isLoading, fetchUsersConcat }) => {
-  // const { isLoading } = usePeopleFetch();
 
   return (
     <Grow in={true}>

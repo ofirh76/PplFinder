@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import Text from "components/Text";
-import { usePeopleFetch, useLocalStorage } from "hooks";
+import { useLocalStorage } from "hooks";
 import List from "components/List";
 import * as S from "./style";
 import { Grow } from "@material-ui/core";
-import { ContactsOutlined } from "@material-ui/icons";
 
 const Favorites = (isLoading) => {
-  // const { isLoading } = usePeopleFetch();
   const { favoriteUsers, toggleFavorite } = useLocalStorage();
 
   return (
