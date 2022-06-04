@@ -10,22 +10,24 @@ import FormControl from '@material-ui/core/FormControl';
 import * as S from "./style";
 
 
-const Filters = ({countriesMapping, filter, setFilter, sortBy, setSortBy, sortByOptions}) => {
-	// const handleCheckBoxChange = eventCountry =>{
-	// setFilter( filter => {
-	// 	!filter[eventCountry] ?
-	// 	filter[eventCountry] = countriesMapping[eventCountry] :
-	// 	delete filter[eventCountry]
-	// 	return {...filter};
-	// });
-	// console.log(filter)
-	// }
+const Filters = ({countriesMapping, sortByOptions, dispatch, users}) => {
 	const [reversedCountriesMapping, setReversedCountriesMapping] = useState({});
+	const [filter, setFilter] = useState([]);
+  const [sortBy, setSortBy] = useState('');
 	const handleCheckBoxChange = e => {
-		const newFilter = e.target.value;
-		console.log(e.target.value)
-		setFilter(newFilter);
+		dispatch({type: 'filter', payload: {filter: e.target.value, users}});
+		sortBy && dispatch({type: 'sort', payload: {sortBy: sortBy}});
+		setFilter(e.target.value);
+		console.log(filter)
 	};
+	// const handleCheckBoxChange = e => {
+	// 	const newFilter = e.target.value;
+	// 	setFilter(newFilter);
+	// };
+	const handleSortBy = e => {
+		dispatch({type: 'sort', payload: {sortBy: e.target.value}});
+		setSortBy(e.target.value);
+	}
 	const reverseKeyValue = obj => { //reverse key and value of an object
 		const reversedObj = {};
 		Object.entries(obj).forEach( entry => reversedObj[entry[1]] = entry[0]);
@@ -36,13 +38,12 @@ const Filters = ({countriesMapping, filter, setFilter, sortBy, setSortBy, sortBy
 		setReversedCountriesMapping(reverseKeyValue(countriesMapping));
 	}, []);
 
+	// useEffect(() => {
+  //   filter.length > 0 && dispatch({type: 'filter', payload: {filter}});
+	// 	sortBy && dispatch({type: 'sort', payload: {sortBy}});
+  // }, [users]);
+
 	return (
-		// <S.Filters>
-		// 	{Object.entries(countriesMapping).map( country =>
-		// 	<CheckBox key={country[0]} value={country[0]} label={country[1]} 
-		// 		onChange={ handleCheckBoxChange }/>
-		// 	)}
-		// </S.Filters>
 		<S.Container>
 			<S.FormControl variant="outlined">
 				<InputLabel>Filter</InputLabel>
@@ -65,7 +66,8 @@ const Filters = ({countriesMapping, filter, setFilter, sortBy, setSortBy, sortBy
 			<S.FormControl variant='outlined'>
 				<InputLabel>SortBy</InputLabel>
 				<S.Select
-				onChange={ (e) => setSortBy(e.target.value) }
+				onChange={ handleSortBy }
+				// onChange={ (e) => setSortBy(e.target.value) }
 				value={sortBy}
 				renderValue={sortBy => sortBy[0].toUpperCase()+sortBy.slice(1)}
 				label='SortBy'
