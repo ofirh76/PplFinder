@@ -6,14 +6,14 @@ import { usePeopleFetch } from "hooks";
 import NavBar from "components/NavBar";
 
 const AppRouter = () => {
-  const { users, isLoading, fetchUsersConcat } = usePeopleFetch();
+  const { users, isLoading, setGetMoreUsers } = usePeopleFetch();
 
   return (
     <ThemeProvider>
       <Router>
         <NavBar />
         <Switch>
-          <Route exact path="/"><Home users={users} isLoading={isLoading} fetchUsersConcat={fetchUsersConcat}/></Route>
+          <Route exact path="/"><Home users={users} isLoading={isLoading} setGetMoreUsers={setGetMoreUsers}/></Route>
           <Route exact path="/favorites"><Favorites isLoading={isLoading}/></Route>
         </Switch>
       </Router>

@@ -73,7 +73,7 @@ const reducer = (usersState, action) => {
   }
 }
 
-const UserList = ({ users, isLoading, fetchUsersConcat }) => {
+const UserList = ({ users, isLoading, setGetMoreUsers }) => {
   const [usersState, dispatch] = useReducer(reducer, {userList: users, filter: [], sortBy: ''});
 
   const handleScroll = e => {
@@ -86,7 +86,7 @@ const UserList = ({ users, isLoading, fetchUsersConcat }) => {
     //check if the scroll amount is close enough to some threshold(1 was used for simplicity, may be changed).
     const SCROLL_THRESHHOLD = 1;
 		const bottom = e.target.scrollHeight - e.target.clientHeight - e.target.scrollTop < SCROLL_THRESHHOLD;
-		bottom && !isLoading && fetchUsersConcat();
+		bottom && !isLoading && setGetMoreUsers(true);
  	};
 
    useEffect(() => {

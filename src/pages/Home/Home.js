@@ -4,7 +4,7 @@ import UserList from "components/UserList";
 import { Grow } from "@material-ui/core";
 import * as S from "./style";
 
-const Home = ({ users, isLoading, fetchUsersConcat }) => {
+const Home = ({ users, isLoading, setGetMoreUsers }) => {
 
   return (
     <Grow in={true}>
@@ -15,7 +15,7 @@ const Home = ({ users, isLoading, fetchUsersConcat }) => {
               PplFinder
             </Text>
           </S.Header>
-          <UserList users={users} isLoading={isLoading} fetchUsersConcat={fetchUsersConcat}/>
+          <UserList users={users} isLoading={isLoading} setGetMoreUsers={setGetMoreUsers}/>
         </S.Content>
       </S.Home>
     </Grow>
